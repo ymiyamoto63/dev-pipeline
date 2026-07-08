@@ -62,6 +62,9 @@ cp commands/*.md ~/.claude/commands/
 
 ## 前提・制約
 
+- 開発対象は SPA（フロントエンド: Vue 3 + TypeScript + Pinia + Vuetify + Vite + pnpm、バックエンド: Java Spring Boot + Flyway + PostgreSQL、開発環境: devcontainer）を既定とする。各エージェントはこのスタック固有の規約・欠陥パターンを持つが、実際のリポジトリの規約が常に優先される
+- 設計フェーズでは、フロント/バック横断の変更に対して API 契約（エンドポイント・リクエスト/レスポンス型・エラー応答）の明文化が必須。両サイドはこの契約に対して実装する
+- 受け入れ基準には ID（AC-1, AC-2, …）を付与し、テストレポートで基準ごとの検証結果をトレースする
 - `pr-publisher` は feature/topic ブランチにのみコミットし、main/master への直接コミットや force-push は行わない
 - push・PR作成の前には必ずユーザーへの確認を挟む
 - 各サブエージェントは前の対話の記憶を持たない（ステートレス）。フェーズ間の情報は `docs/` 配下のファイルを介して受け渡される

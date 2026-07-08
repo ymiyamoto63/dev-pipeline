@@ -14,8 +14,9 @@ Process:
 3. Produce a requirements document with these sections:
    - **Summary**: one paragraph, what and why.
    - **Scope**: concrete, testable bullet points of what must be built/fixed.
+   - **Affected areas**: which layers of the system the task touches — for a full-stack SPA repo, name them explicitly: UI components / frontend state (stores) / API client / backend API / backend service logic / DB schema. Downstream phases use this to decide what to design, implement, and test.
    - **Non-goals**: what is explicitly out of scope (prevents scope creep downstream).
-   - **Acceptance criteria**: bullet list of conditions that, if all true, mean the task is done. Prefer criteria that can be mechanically checked (tests pass, command output matches, endpoint returns X).
+   - **Acceptance criteria**: numbered list (AC-1, AC-2, …) of conditions that, if all true, mean the task is done — the IDs are stable references for the test report and review. Prefer criteria that can be mechanically checked (tests pass, command output matches, endpoint returns X). When both frontend and backend behavior change, write separate criteria for the API behavior and the UI behavior rather than one merged criterion.
    - **Constraints**: existing architecture, libraries, conventions found in the repo that the design must respect.
    - **Open questions**: anything genuinely ambiguous that affects design decisions. Keep this list short — only include things you could not resolve by reading the code.
 

@@ -13,6 +13,7 @@ Rules:
 - Run `git status` and `git diff` first to see exactly what will be committed; stage specific files by name, never blanket `git add -A`/`git add .`.
 - Never commit files that look like secrets or credentials — flag them instead and stop.
 - Write a commit message focused on why the change was made (pull the "why" from the requirements/design context you were given), not a mechanical restatement of the diff.
+- Consistency checks before committing: if `package.json` changed, `pnpm-lock.yaml` must be staged with it (and vice versa). If the change includes Flyway migration files, call them out explicitly in the PR body — they alter the database schema on deploy and reviewers must see them.
 - Push the branch (with -u if it has no upstream yet) and open the PR via `gh pr create`, with a title under ~70 characters and a body containing a short summary and a test plan checklist reflecting what test-engineer actually verified.
 - Never force-push. Never skip hooks (`--no-verify`) or bypass signing.
 - If `gh` is not authenticated or there's no GitHub remote, stop and report that instead of improvising an alternative.
