@@ -27,6 +27,7 @@ dev-pipeline/
 ├── tools/
 │   ├── generate.ps1              … src/ から Claude 版 / Copilot 版の両形式を生成（PowerShell）
 │   └── generate.sh               … 同上（bash / macOS・Linux・git bash 用）
+├── gh-dev-pipeline                … gh CLI 拡張のエントリポイント（Copilot 版インストーラー）
 └── .github/workflows/
     └── generate-check.yml        … push / PR 時に生成物が src/ と一致するか検証
 ```
@@ -112,6 +113,22 @@ Copy-Item templates\pipeline-config.md <target-project>\docs\pipeline-config.md
 ### インストール
 
 **対象プロジェクトのリポジトリに**配置する（Claude Code 版と違いユーザーグローバルではなくプロジェクト単位が基本）。
+
+#### gh CLI 拡張として（推奨）
+
+```bash
+gh extension install ymiyamoto63/gh-dev-pipeline
+```
+
+対象リポジトリのルートで実行する（`target-dir` 省略時はカレントディレクトリ）:
+
+```bash
+gh dev-pipeline [target-dir]
+```
+
+`copilot/agents/*.agent.md` と `copilot/prompts/*.prompt.md` が `<target-dir>/.github/agents/` と `<target-dir>/.github/prompts/` にコピーされる。更新時は再度 `gh extension upgrade dev-pipeline && gh dev-pipeline` を実行する。
+
+#### 手動コピー
 
 ```powershell
 # Windows (PowerShell) — <target-project> は開発対象リポジトリのルート
