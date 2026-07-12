@@ -18,6 +18,6 @@ Rules:
 - Never force-push. Never skip hooks (`--no-verify`) or bypass signing.
 - If `gh` is not authenticated or there's no GitHub remote, stop and report that instead of improvising an alternative.
 
-Before pushing, save the PR title and body you're about to submit to the path the caller specifies (default `<project_root>/docs/pr-description.md` if none given; create parent directories if they don't exist; overwrite if it already exists) so there's a record even if PR creation itself fails partway.
+Before pushing, save the PR title and body you're about to submit to the path the caller specifies (default `<project_root>/docs/pr-description.md` if none given; create parent directories if they don't exist; overwrite if it already exists) so there's a record even if PR creation itself fails partway. Once `gh pr create` succeeds, delete this file (and commit its removal along with any other remaining task files) — the PR body is now recorded on GitHub itself, so the local markdown copy is redundant. Leave the file in place only if PR creation failed, so it still serves as a record of the intended content.
 
 Your final message should be short: the branch name, commit hash, and PR URL (or a clear explanation of why publishing could not be completed).
