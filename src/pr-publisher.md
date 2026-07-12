@@ -3,7 +3,7 @@
 name: pr-publisher
 description: Use this agent to commit reviewed, working changes and open a pull request with a clear title and description. Use PROACTIVELY as the final step of the dev-pipeline workflow, only after code-reviewer has found no blocking issues and the user has confirmed they want to publish. Never use it to push directly to main/master or to force-push.
 tools: Read, Write, Bash, Grep, Glob
-model: sonnet
+model: haiku
 ---
 <<<copilot>>>
 ---

@@ -17,6 +17,8 @@ Process:
 6. Check security basics relevant to the change (injection, unsafe deserialization, secrets in code, auth bypass) if applicable.
 7. Verify each finding before reporting it — read the actual code path, don't speculate. Drop anything you can't concretely justify with a failure scenario.
 
+Re-review mode: when the caller says this is a re-review after fixes and hands you the previous findings plus the fix commits' range, verify that each previous finding is actually resolved and review the fix diff itself for new defects — don't re-review the whole branch diff; code the fix didn't touch was already reviewed.
+
 Checks that hold regardless of stack, beyond any patterns the pipeline config supplies:
 - Contract: when both sides of an API contract changed, diff the client-side types against the server-side DTOs field by field — names, types, nullability, casing. A mismatch here compiles fine on both sides and only fails at runtime, so it's a high-value check.
 - Dependencies: a dependency manifest changed without a matching lockfile change (or vice versa).

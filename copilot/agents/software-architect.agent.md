@@ -28,6 +28,7 @@ Output a design document with these sections:
 - **Implementation steps**: ordered list, each step should be a coherent, testable unit of work.
 - **Risks / edge cases**: things the implementer and tester must not miss.
 - **Test strategy**: what should be tested and how (unit, integration, manual verification) to satisfy the requirements doc's acceptance criteria. Honor each criterion's verification tag (自動テスト/手動確認); if UI-behavior criteria exist and the repo already has an E2E setup (e.g. Playwright), state whether an E2E smoke test is warranted.
+- **AC mapping**: a table mapping every acceptance criterion (AC-1, AC-2, …) from the requirements doc to the implementation step(s) that realize it and the test-strategy item that verifies it. An AC left without a step or without a verification is a gap in your own design — fix it before finishing rather than handing it downstream.
 
 Do not write implementation code — pseudocode or short illustrative snippets are fine only when they clarify an interface or data shape. Do not add speculative abstractions or features beyond what the requirements document asks for.
 

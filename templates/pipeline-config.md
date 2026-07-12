@@ -1,10 +1,17 @@
 # Pipeline Config
 
-このファイルは対象プロジェクトの `docs/pipeline-config.md` にコピーして使う。dev-pipeline のオーケストレーターが実行開始時にこれを読み、`## stack` を全フェーズのサブエージェントに、各フェーズ節（`## design` など）を対応するフェーズのサブエージェントにそのまま渡す。ここに書いた内容はデフォルト扱いであり、実リポジトリの規約・実装が常に優先される。以下は Vue 3 + Spring Boot スタックの例 — 対象プロジェクトに合わせて書き換えること。
+このファイルは対象プロジェクトの `docs/pipeline-config.md` にコピーして使う。dev-pipeline のオーケストレーターが実行開始時にこれを読み、`## stack` を全フェーズのサブエージェントに、`## commands` をビルド/テストを行うフェーズ（implementer / test-engineer）に、各フェーズ節（`## design` など）を対応するフェーズのサブエージェントにそのまま渡す。ここに書いた内容はデフォルト扱いであり、実リポジトリの規約・実装が常に優先される。以下は Vue 3 + Spring Boot スタックの例 — 対象プロジェクトに合わせて書き換えること。
 
 ## stack
 
-SPA with a Vue 3 + TypeScript + Pinia + Vuetify + Vite + pnpm frontend and a Java Spring Boot + Flyway + PostgreSQL backend, developed inside a devcontainer. Build/test commands must be discovered from the repo (package.json scripts, mvnw/gradlew wrapper), not guessed; if a needed tool is missing, report it — don't install it.
+SPA with a Vue 3 + TypeScript + Pinia + Vuetify + Vite + pnpm frontend and a Java Spring Boot + Flyway + PostgreSQL backend, developed inside a devcontainer. If a needed tool is missing, report it — don't install it.
+
+## commands
+
+Verified build/test commands. The pipeline passes these to every phase that builds or tests, as fixed values — agents run them as given instead of re-discovering them from the repo (if one doesn't work, they report it).
+
+- frontend: typecheck `pnpm vue-tsc --noEmit` / lint `pnpm lint` / test `pnpm test`
+- backend: compile `./mvnw compile` / test `./mvnw test`
 
 ## requirements
 
