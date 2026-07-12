@@ -37,7 +37,7 @@ dev-pipeline/
 ## パイプラインの流れ
 
 1. **プリフライト** — 作業ツリーがクリーンであることを確認（汚れていればユーザーに確認して停止）
-2. **要件定義** (`requirements-analyst`) — タスクを要件定義書に変換。曖昧な点は Open Questions としてユーザーに質問し、回答を渡してエージェント自身が要件書を更新する**インタビューループ**（合計最大20問）。各質問にはコードベース調査に基づく**推奨回答と根拠**が付き、選択肢の先頭に「（推奨）」として提示されるため、デフォルトを受け入れるだけで素早く進められる。各受け入れ基準（AC-1, AC-2, …）には検証方法（自動テスト / 手動確認）のタグが付く
+2. **要件定義** (`requirements-analyst`) — タスクを要件定義書に変換。入力が既存の要件定義書のパス（[refine-requirements](https://github.com/ymiyamoto63/gh-refine-requirements) の成果物など）の場合は新規作成をスキップし、ドキュメントの「未決定事項」の解消のみ行う（以降の承認ゲート・Issue作成・ブランチ作成は通常どおり実行）。曖昧な点は Open Questions としてユーザーに質問し、回答を渡してエージェント自身が要件書を更新する**インタビューループ**（合計最大20問）。各質問にはコードベース調査に基づく**推奨回答と根拠**が付き、選択肢の先頭に「（推奨）」として提示されるため、デフォルトを受け入れるだけで素早く進められる。各受け入れ基準（AC-1, AC-2, …）には検証方法（自動テスト / 手動確認）のタグが付く
 3. **承認ゲート** — ユーザーが要件を承認し、実行モードを選択:
    - **confirm-design**: 設計完了時にもう一度確認を挟む
    - **auto**: 設計〜レビューをノンストップで実行（PR作成前の確認は常にあり）
@@ -97,14 +97,18 @@ Copy-Item templates\pipeline-config.md <target-project>\docs\pipeline-config.md
 
 ```
 /dev-pipeline <タスクの説明>
-/dev-pipeline resume #<issue番号>     … 中断した実行の再開
+/dev-pipeline <既存の要件定義書のパス>    … refine-requirements 等で作成済みの要件書から開始
+/dev-pipeline resume #<issue番号>       … 中断した実行の再開
 ```
 
 例:
 
 ```
 /dev-pipeline ユーザープロフィール編集画面にアバター画像アップロード機能を追加する
+/dev-pipeline docs/requirements/avatar-upload.md
 ```
+
+要件定義書のパスを渡した場合、要件定義エージェントによる新規作成はスキップされ、そのドキュメントの「未決定事項」だけをインタビューで解消して承認ゲートに進む。**承認後の GitHub Issue 作成・`docs/<issue番号>/` の作成・ブランチ作成は通常実行と同じく必ず行われ**、要件書は `docs/<issue番号>/requirements.md` にコピーされる（`docs/requirements/` の原本はそのまま残る）。
 
 ## GitHub Copilot 版
 
